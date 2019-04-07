@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Charts</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="../static/jqcloud/jqcloud-1.0.4.js"></script>
+    <link rel="stylesheet" href="../static/css/graphstyle.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="../static/jqcloud/jqcloud.css"/>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h2>Generated Pie Chart</h2>
+      <canvas id="myChart" width="1000" height="400"></canvas>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div id="cloud" style="width:700px;height:200px"></div>
+      </div>
+    </div>
+      <script>
+        // Global parameters:
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        //chart data
+        var chartData = {
+          labels : [{% for item in arrWord %}
+                 "{{item}}",
+                {% endfor %}],
+          datasets : [{
+          label: 'my chart',
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: [{% for item in colorCodes %}
+                     "{{item}}",
+                    {% endfor %}],
+          borderColor: [{% for item in colorCodes %}
+                     "{{item}}",
+                    {% endfor %}] ,
+          data : [{% for item in arrCount %}
+                    {{item}},
+                  {% endfor %}]
+        }]
+      }
+        var ctx = document.getElementById("myChart").getContext("2d");
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: chartData,
+          options: {
+            legend: {
+            display: false
+            }
+          }
+        });
+
+      //wordcloud code
+      var wordList=[
+        {% for word, count in zipList %}
+        {text: "{{word}}",weight: {{count}},color:"{{colorCodes}}"},
+        {% endfor %}
+        ];
+        $(function(){
+          $("#cloud").jQCloud(wordList);
+        });
+    </script>
+  </body>
+</html>

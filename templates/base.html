@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <title>Lyrics Frequency</title>
+  </head>
+  <body>
+    <section class="intro">
+      <row>
+        <div class="col-lg-6 col-sm-12 left">
+          <div class="myForm">
+            <form action=""{{url_for('renderCharts')}}"" method="post">
+              <label for="artistN">Enter Artist Name</label>
+              <input type="text" name="artistName" id="artistN" required>
+              <label for="songN">Enter Song Name</label>
+              <input type="text" name="songName" id="songN" required>
+              <input type="submit" onclick="renderCharts(arrWord,arrCount)" id="searchBtn" value="Generate Frequency">
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 right">
+          <div class="headLogo">
+            <h1>Lyric Frequency</h1>
+            <a href="https://www.lyrics.wikia.com"><p>Find lyrics on lyrics.wikia.com</p></a>
+          </div>
+          <div class="mostWord">
+        </div>
+      </row>
+    </section>
+  </body>
+</html>
